@@ -44,7 +44,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
                 //User is not logged in
                 setUser (null)
                 setLoading (true)
-                router.push ("/login")
+                /* router.push ("/login") */
             }
             setInitialLoading (false)
         }),
@@ -75,6 +75,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
         setLoading (true)
         signOut(auth).then(() => {
             setUser(null)
+            router.push ("/login")
         }).catch ((error) => alert (error.message))
           .finally (() => setLoading (false))
     }

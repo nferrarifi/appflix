@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import {useForm} from 'react-hook-form'
+import useAuth from '../hooks/useAuth'
+import Link from 'next/link'
 
 interface Inputs {
   email: string
@@ -9,16 +11,18 @@ interface Inputs {
 }
 
 const login = () => {
+    const { signIn, signUp } = useAuth()
     const [Login, setLogin] = useState(Boolean)
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit = async ({email, password}) => {
       if (Login) {
-        //await signIn (email,password)
+        await signIn (email,password)
       }
       else {
-        //await  signUp (email,password)
+        await  signUp (email,password)
       }
     }
+
 
   return (
     <div className="relative flex h-screen w-screen flex-col bg:black md:items-center md:justify-center md:bg-transparent">
@@ -33,7 +37,9 @@ const login = () => {
         objectFit='cover'
        />
 
-       <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="logo" width={100} height={100} className={"absolute left-4 top-4 md:left-10 md:top-6        cursor-pointer object-contain"} />
+       <Link href="/">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="logo" width={100} height={100} className={"absolute left-4 top-4 md:left-10   md:top-6        cursor-pointer object-contain"} />
+        </Link>
 
        <form onSubmit={handleSubmit(onSubmit)}  className='relative mt-24 space-y-8 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14'>
             <h1 className="text-xl font-semibold">Sign in</h1>
@@ -56,7 +62,7 @@ const login = () => {
 
             <div className=' text-gray-500'>
                 New to Netflix? {" "}
-                <button className="text-white hover:underline" onClick={() => setLogin (false)}>Sign up now</button>
+                <button type="submit" className="text-white hover:underline" onClick={() => setLogin (false)}>Sign up now</button>
             </div>
        </form>
 
