@@ -31,7 +31,6 @@ const Home = ({
   documentaries}: Props) => {
 
     const {user} = useAuth()
-    console.log (user)
     const showModal = useRecoilValue(modalState)
 
   return (
