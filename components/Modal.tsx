@@ -8,11 +8,15 @@ import ReactPlayer from "react-player/lazy"
 import { FaPlay } from "react-icons/fa"
 import { PlusIcon, ThumbUpIcon, VolumeOffIcon, VolumeUpIcon } from "@heroicons/react/solid"
 
+interface Genres {
+  genres: Genre []
+}
+
 const Modal = () => {
   const [showModal, setShowModal] = useRecoilState(modalState)
   const [movie, setMovie] = useRecoilState (movieState)
   const [trailer, setTrailer] = useState ("")
-  const [genres, setGenres] = useState <Genre> ()
+  const [genres, setGenres] = useState <Genres> ()
   const [muted, setMuted] = useState(true)
   const handleClose = () => {
     setShowModal (false)
@@ -25,15 +29,10 @@ const Modal = () => {
     }
 
     async function fetchMovie () {
-/*           const data = await fetch (
-            `https://api.themoviedb.org/3/${movie?.media_type === 'tv' ? 'tv' : 'movie'}/${movie?.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&  append_to_response=videos`)
-            .then ((res) => res.json())
-            .catch ((err) => console.log (err))  */
           const [videos, movieData] = await Promise.all ([
             fetch (`https://api.themoviedb.org/3/movie/${movie?.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`).then ((res) => res.json()),
             fetch (`https://api.themoviedb.org/3/${movie?.media_type === 'tv' ? 'tv' : 'movie'}/${movie?.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&`).then ((res) => res.json())
           ])
-          console.log (videos)
           if (videos) {
             const index = videos.results?.findIndex((element:Element) => element.type === "Trailer")
             console.log (videos.results[index]?.key)
@@ -98,7 +97,7 @@ const Modal = () => {
                 <div>
                   <div className="flex flex-col space-y-10 text-sm">
                     <span className="text-[gray]">Genres: </span>
-                    {genres?.map ((genre) => genre.name).join(", ")}
+                    {genres?.map ((genre: Genre) => genre.name).join(", ")}
                     <span className="text-[gray]">Total Votes: </span>
                     {movie?.vote_count}
                   </div>
