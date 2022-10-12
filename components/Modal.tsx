@@ -8,15 +8,12 @@ import ReactPlayer from "react-player/lazy"
 import { FaPlay } from "react-icons/fa"
 import { PlusIcon, ThumbUpIcon, VolumeOffIcon, VolumeUpIcon } from "@heroicons/react/solid"
 
-interface Genres {
-  genres: Genre []
-}
 
 const Modal = () => {
   const [showModal, setShowModal] = useRecoilState(modalState)
   const [movie, setMovie] = useRecoilState (movieState)
   const [trailer, setTrailer] = useState ("")
-  const [genres, setGenres] = useState <Genres> ()
+  const [genres, setGenres] = useState <Genre[]> ()
   const [muted, setMuted] = useState(true)
   const handleClose = () => {
     setShowModal (false)
