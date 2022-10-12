@@ -14,7 +14,7 @@ const login = () => {
     const { signIn, signUp } = useAuth()
     const [Login, setLogin] = useState(Boolean)
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-    const onSubmit = async ({email, password}) => {
+    const onSubmit = async ({email, password} : Inputs) => {
       if (Login) {
         await signIn (email,password)
       }
