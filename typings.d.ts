@@ -13,7 +13,8 @@ export interface Movie {
     vote_average: number
     vote_count: number
     original_country: []
-    name: string
+    name: string,
+    first_air_date: string
 }
 
 export interface Genre {
